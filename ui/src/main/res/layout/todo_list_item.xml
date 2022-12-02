@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<TextView
+    android:id="@+id/todoId"
+    android:layout_width="40dp"
+    android:layout_height="match_parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:id="@+id/todoDesc"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toEndOf="@+id/todoId"/>
+    <ImageView
+        android:id="@+id/deleteTodo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@android:drawable/ic_delete"
+        app:layout_constraintStart_toEndOf="@+id/todoDesc"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
