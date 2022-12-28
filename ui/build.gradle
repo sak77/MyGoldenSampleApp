@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
-apply from: '../android.common.gradle'
 
 android {
     compileSdk 32

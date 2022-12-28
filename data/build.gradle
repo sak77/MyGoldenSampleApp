@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
-apply from: '../android.common.gradle'
 
 android {
     compileSdk 32
@@ -36,7 +37,8 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
-    api Lib.room
+    implementation Lib.room
+
     kapt Lib.roomCompiler
 
     testImplementation 'junit:junit:4.13.2'

@@ -1,34 +1,23 @@
 package com.saket.ui
 
-import android.content.Context
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.textfield.TextInputEditText
 import com.saket.domain.model.Todo
-import com.saket.ui.di.DaggerUIComponent
-import com.saket.ui.di.TodoModule
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class CreateTodoFragment : Fragment() {
-
-    @Inject
-    lateinit var todoViewModel: TodoViewModel
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        DaggerUIComponent.builder()
-            .todoModule(TodoModule(context))
-            .build()
-            .inject(this)
-    }
+    private val todoViewModel: TodoViewModel by viewModels { TodoViewModelFactory(context?.applicationContext as Application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,4 +73,5 @@ class CreateTodoFragment : Fragment() {
     fun displayError(message: String) {
         println("Bunny CreateFragment is in Error State")
     }
+
 }

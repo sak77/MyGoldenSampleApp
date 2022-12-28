@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
 }
-apply from: '../android.common.gradle'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_7
