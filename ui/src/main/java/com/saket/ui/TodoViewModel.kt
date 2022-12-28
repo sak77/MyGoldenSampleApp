@@ -8,13 +8,10 @@ import com.saket.domain.model.Todo
 import com.saket.domain.usecases.AddTodo
 import com.saket.domain.usecases.GetAllTodos
 import com.saket.domain.usecases.RemoveTodo
-import com.saket.ui.di.FragmentScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
 
-@FragmentScope
-class TodoViewModel @Inject constructor(
+class TodoViewModel(
     getAllTodos: GetAllTodos,
     private val addTodo: AddTodo,
     private val removeTodo: RemoveTodo
