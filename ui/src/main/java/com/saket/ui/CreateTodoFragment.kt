@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -20,7 +21,10 @@ import javax.inject.Inject
 class CreateTodoFragment : Fragment() {
 
     @Inject
-    lateinit var todoViewModel: TodoViewModel
+    lateinit var todoViewModelFactory: TodoViewModelFactory
+    private val todoViewModel: TodoViewModel by viewModels {
+        todoViewModelFactory
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
