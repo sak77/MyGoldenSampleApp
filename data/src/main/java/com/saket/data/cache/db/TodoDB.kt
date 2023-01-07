@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.saket.data.cache.dao.TodoDao
 import com.saket.data.cache.entity.TodoEntity
-import com.saket.domain.model.Todo
 
 @Database(entities = [TodoEntity::class], version = 1, exportSchema = false)
 abstract class TodoDB : RoomDatabase() {
