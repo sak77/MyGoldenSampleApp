@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
+apply from: '../android.common.gradle'
 
 android {
     compileSdk 32
@@ -34,6 +35,7 @@ android {
         buildConfig = false
         resValues = false
     }
+    namespace 'com.saket.goldensample'
 }
 
 dependencies {
