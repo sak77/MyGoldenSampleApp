@@ -9,12 +9,11 @@ import dagger.Module
 import dagger.Provides
 
 /**
- * RoomModule is responsible to provide instance of classes from
- * this layer (TodoDB, TodoTable and TodoRepository).
+ * RoomModule is responsible to provide instance of classes from this layer (TodoDB, TodoTable and
+ * TodoRepository).
  */
 @Module
 class RoomModule {
-
     /*
     TodoDB instance has dependency on instance of Context class. Which is provided as a parameter
     to the providesTodoDB method. Which means, a component or some other module in the Dagger graph

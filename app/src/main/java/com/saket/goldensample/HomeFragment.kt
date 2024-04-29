@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment
 import com.saket.ui.CreateTodoFragment
 
 class HomeFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
         val createButton = rootView.findViewById<Button>(R.id.btnCreate)
         createButton.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .add(R.id.fragment_container_view,CreateTodoFragment())
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container_view, CreateTodoFragment())
                 .commit()
         }
         return rootView

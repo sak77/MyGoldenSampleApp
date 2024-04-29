@@ -7,7 +7,9 @@ import com.saket.data.cache.dao.TodoDao
 import com.saket.domain.model.Todo
 
 @Entity(tableName = TodoDao.TODO_ENTRIES)
-open class TodoEntity constructor(@Embedded val todo: Todo) {
-    @PrimaryKey(autoGenerate = true)
-    var pkId: Int = 0
+open class TodoEntity
+constructor(
+    @Embedded val todo: Todo,
+) {
+    @PrimaryKey(autoGenerate = true) var pkId: Int = 0
 }

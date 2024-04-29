@@ -2,11 +2,15 @@ package com.saket.domain.usecases
 
 import com.saket.domain.model.ITodoRepository
 import com.saket.domain.model.Todo
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class AddTodo constructor(
+class AddTodo
+constructor(
     private val todoRepository: ITodoRepository,
-    private val executors: CoroutineDispatcher
+    private val executors: CoroutineDispatcher,
 ) {
     private val useCaseName = "GetAllTodos"
 
@@ -35,7 +39,8 @@ class AddTodo constructor(
     instance is used in calling viewmodel to execute code after the coroutine job is
     complete.
      */
-    fun executeOnBackground(scope: CoroutineScope, args: Todo): Job = scope.launch(executors) {
-        todoRepository.addTodo(args)
-    }
+    fun executeOnBackground(
+        scope: CoroutineScope,
+        args: Todo,
+    ): Job = scope.launch(executors) { todoRepository.addTodo(args) }
 }

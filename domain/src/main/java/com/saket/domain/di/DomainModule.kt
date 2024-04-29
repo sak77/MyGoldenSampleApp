@@ -1,4 +1,3 @@
 package com.saket.domain.di
 
-class DomainModule {
-}
+class DomainModule

@@ -1,10 +1,8 @@
 package com.saket.domain
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 
-abstract class UseCase<TInput, TOutput> () {
-
+abstract class UseCase<TInput, TOutput>() {
     private var parentJob: Job = Job()
 
     protected abstract val usecaseName: String

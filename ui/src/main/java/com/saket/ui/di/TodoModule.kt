@@ -7,13 +7,11 @@ import dagger.Module
 import dagger.Provides
 
 /**
- * TodoModule is composed of RoomModule from data layer
- * and TodoUseCaseModule from domain layer.
+ * TodoModule is composed of RoomModule from data layer and TodoUseCaseModule from domain layer.
  *
- * TodoUseCaseModule requires instance of ITodoRepository
- * which is provided from the RoomModule via TodoModule class.
+ * TodoUseCaseModule requires instance of ITodoRepository which is provided from the RoomModule via
+ * TodoModule class.
  */
-
 @Module(includes = [RoomModule::class, TodoUseCaseModule::class])
 class TodoModule constructor(private val context: Context) {
     @Provides

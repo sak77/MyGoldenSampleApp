@@ -15,23 +15,16 @@ import com.google.android.material.textfield.TextInputEditText
 import com.saket.domain.model.Todo
 import com.saket.ui.di.DaggerUIComponent
 import com.saket.ui.di.TodoModule
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 class CreateTodoFragment : Fragment() {
-
-    @Inject
-    lateinit var todoViewModelFactory: TodoViewModelFactory
-    private val todoViewModel: TodoViewModel by viewModels {
-        todoViewModelFactory
-    }
+    @Inject lateinit var todoViewModelFactory: TodoViewModelFactory
+    private val todoViewModel: TodoViewModel by viewModels { todoViewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerUIComponent.builder()
-            .todoModule(TodoModule(context))
-            .build()
-            .inject(this)
+        DaggerUIComponent.builder().todoModule(TodoModule(context)).build().inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +37,8 @@ class CreateTodoFragment : Fragment() {
                 // Trigger the flow and start listening for values.
                 // Note that this happens when lifecycle is STARTED and stops
                 // collecting when the lifecycle is STOPPED
-                todoViewModel.uiState.collect {
-                    uiState -> when(uiState) {
+                todoViewModel.uiState.collect { uiState ->
+                    when (uiState) {
                         is TodoViewModel.UiState.Default -> defaultState()
                         is TodoViewModel.UiState.Loading -> displayLoading()
                         is TodoViewModel.UiState.Completed -> closeFragment()
@@ -59,7 +52,7 @@ class CreateTodoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_newtodo, container, false)
         val submitTodo = rootView.findViewById<Button>(R.id.submit_todo)
@@ -76,9 +69,7 @@ class CreateTodoFragment : Fragment() {
     }
 
     fun closeFragment() {
-        parentFragmentManager.beginTransaction()
-            .remove(this@CreateTodoFragment)
-            .commit()
+        parentFragmentManager.beginTransaction().remove(this@CreateTodoFragment).commit()
     }
 
     fun displayLoading() {

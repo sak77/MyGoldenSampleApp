@@ -8,7 +8,6 @@ reference.
  */
 @Subcomponent(modules = [RoomModule::class])
 interface DataSubComponent {
-
     @Subcomponent.Factory
     interface Factory {
         fun create(): DataSubComponent
@@ -18,6 +17,6 @@ interface DataSubComponent {
     @Subcomponent.Builder
      */
     interface Builder {
-        //Need to figure out how builder works..
+        // Need to figure out how builder works..
     }
 }
