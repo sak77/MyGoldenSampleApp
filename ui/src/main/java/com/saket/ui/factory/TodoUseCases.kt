@@ -7,7 +7,6 @@ import com.saket.domain.usecases.RemoveTodo
 import kotlinx.coroutines.Dispatchers
 
 class TodoUseCases(context: Context) : TodoUseCaseFactory {
-
     private val todoRepository = RepositoryFactory.createTodoRepository(context)
     private val executors = Dispatchers.Default
 

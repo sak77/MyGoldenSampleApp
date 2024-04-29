@@ -14,9 +14,8 @@ import kotlinx.coroutines.flow.StateFlow
 class TodoViewModel(
     getAllTodos: GetAllTodos,
     private val addTodo: AddTodo,
-    private val removeTodo: RemoveTodo
+    private val removeTodo: RemoveTodo,
 ) : ViewModel() {
-
     private val _todos: MutableLiveData<List<Todo>> = MutableLiveData(listOf())
     val todos: LiveData<List<Todo>> = _todos
 
@@ -24,9 +23,7 @@ class TodoViewModel(
     val uiState: StateFlow<UiState> = _uiState
 
     init {
-        getAllTodos.executeFlow(viewModelScope) { list ->
-            _todos.value = list
-        }
+        getAllTodos.executeFlow(viewModelScope) { list -> _todos.value = list }
     }
 
     fun addTodo(todo: Todo) {
@@ -38,7 +35,7 @@ class TodoViewModel(
             } else {
                 println(
                     "addTodo throwable is not null. Maybe its canclled or " +
-                            "maybe its an error.. $it"
+                        "maybe its an error.. $it",
                 )
                 _uiState.value = UiState.Error(it.message.toString())
             }
@@ -54,7 +51,7 @@ class TodoViewModel(
             } else {
                 println(
                     "removeTodo throwable is not null. Maybe its canclled or " +
-                            "maybe its an error.. $it"
+                        "maybe its an error.. $it",
                 )
                 _uiState.value = UiState.Error(it.message.toString())
             }
@@ -67,8 +64,11 @@ class TodoViewModel(
      */
     sealed class UiState {
         data class Default(val message: String) : UiState()
+
         data class Loading(val message: String) : UiState()
+
         data class Completed(val message: String) : UiState()
+
         data class Error(val message: String) : UiState()
     }
 }
