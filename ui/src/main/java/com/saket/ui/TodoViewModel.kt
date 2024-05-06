@@ -19,35 +19,39 @@ class TodoViewModel(
     private val _todos: MutableLiveData<List<Todo>> = MutableLiveData(listOf())
     val todos: LiveData<List<Todo>> = _todos
 
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Default("default"))
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Default)
     val uiState: StateFlow<UiState> = _uiState
+
+    var testUIState: TestUIState = TestUIState.LOADING
 
     init {
         getAllTodos.executeFlow(viewModelScope) { list -> _todos.value = list }
     }
 
     fun addTodo(todo: Todo) {
-        _uiState.value = UiState.Loading("Loading")
+        _uiState.value = UiState.Loading
         addTodo.executeOnBackground(viewModelScope, todo).invokeOnCompletion {
             if (it == null) {
                 println("addTodo finished without errors")
-                _uiState.value = UiState.Completed("Completed")
+                _uiState.value = UiState.Completed
+                testUIState = TestUIState.COMPLETED
             } else {
                 println(
                     "addTodo throwable is not null. Maybe its canclled or " +
                         "maybe its an error.. $it",
                 )
                 _uiState.value = UiState.Error(it.message.toString())
+                testUIState = TestUIState.ERROR
             }
         }
     }
 
     fun removeTodo(todo: Todo) {
-        _uiState.value = UiState.Loading("Loading")
+        _uiState.value = UiState.Loading
         removeTodo.executeOnBackground(viewModelScope, todo).invokeOnCompletion {
             if (it == null) {
                 println("removeTodo finished without errors")
-                _uiState.value = UiState.Completed("Completed")
+                _uiState.value = UiState.Completed
             } else {
                 println(
                     "removeTodo throwable is not null. Maybe its canclled or " +
@@ -59,16 +63,36 @@ class TodoViewModel(
     }
 
     /*
+    Sub-classes of Sealed class or interface are defined (sealed) at compile time.
+    This allows compiler to run extensive checks when using Sealed class
+    with 'when' condition.
+
+    Sealed class vs Enums
     Sealed class is similar to Enums. But while in Enum, each instance
-    is a Constant, the Sealed class instance is a child of the parent class.
+    is a Constant, the Sealed class instance is a sub-class of the parent class.
+    This allows for each sub-class to have its own member variables on top
+    of those required by the parent class.
+
+    Member variables used by parent class are applicable to all sub-classes.
      */
-    sealed class UiState {
-        data class Default(val message: String) : UiState()
+    sealed class UiState(val message: String) {
+        object Default : UiState("Default")
 
-        data class Loading(val message: String) : UiState()
+        object Loading : UiState("Loading")
 
-        data class Completed(val message: String) : UiState()
+        object Completed : UiState("Completed")
 
-        data class Error(val message: String) : UiState()
+        data class Error(val description: String) : UiState("Error")
+    }
+
+    /*
+    Enums is another way to define States, but then each instance is a Constant of parent type.
+    It can also be used for UI states, but does not offer as much flexibility as Sealed class.
+     */
+    enum class TestUIState (val message: String) {
+        LOADING ("LOADING"),
+        READY ("READY"),
+        COMPLETED ("COMPLETED"),
+        ERROR ("ERROR"),
     }
 }

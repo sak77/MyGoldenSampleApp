@@ -10,8 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 
-class GetAllTodos
-constructor(
+class GetAllTodos(
     private val todoRepository: ITodoRepository,
     private val executors: CoroutineDispatcher,
 ) {

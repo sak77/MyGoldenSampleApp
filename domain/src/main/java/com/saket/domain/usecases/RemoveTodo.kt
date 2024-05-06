@@ -7,8 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class RemoveTodo
-constructor(
+class RemoveTodo(
     private val todoRepository: ITodoRepository,
     private val executors: CoroutineDispatcher,
 ) {
