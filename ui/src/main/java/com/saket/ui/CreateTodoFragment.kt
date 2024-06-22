@@ -13,12 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.textfield.TextInputEditText
 import com.saket.domain.model.Todo
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CreateTodoFragment : Fragment() {
     private val todoViewModel: TodoViewModel by viewModels {
-        TodoViewModelFactory(context?.applicationContext as Application)
+        TodoViewModel.Companion.Factory(context?.applicationContext as Application)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

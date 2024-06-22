@@ -20,7 +20,7 @@ class TodoListFragment : Fragment() {
         val todoList = rootView.findViewById<RecyclerView>(R.id.todo_list)
         todoList.layoutManager = LinearLayoutManager(context)
         val todoViewModel: TodoViewModel by viewModels {
-            TodoViewModelFactory(context?.applicationContext as Application)
+            TodoViewModel.Companion.Factory(context?.applicationContext as Application)
         }
         // Here i also pass deleteclickListener function to the adapter instance.
         val todoListAdapter = TodoListAdapter { todoViewModel.removeTodo(it) }

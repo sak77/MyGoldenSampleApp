@@ -1,13 +1,16 @@
 package com.saket.ui
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.saket.domain.model.Todo
 import com.saket.domain.usecases.AddTodo
 import com.saket.domain.usecases.GetAllTodos
 import com.saket.domain.usecases.RemoveTodo
+import com.saket.ui.factory.TodoUseCases
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -89,10 +92,33 @@ class TodoViewModel(
     Enums is another way to define States, but then each instance is a Constant of parent type.
     It can also be used for UI states, but does not offer as much flexibility as Sealed class.
      */
-    enum class TestUIState (val message: String) {
-        LOADING ("LOADING"),
-        READY ("READY"),
-        COMPLETED ("COMPLETED"),
-        ERROR ("ERROR"),
+    enum class TestUIState(val message: String) {
+        LOADING("LOADING"),
+        READY("READY"),
+        COMPLETED("COMPLETED"),
+        ERROR("ERROR"),
+    }
+
+    /*
+    It is recommended to have viewmodel factory defined within viewmodel class companion object
+     */
+    companion object {
+        class Factory(application: Application) :
+            ViewModelProvider.AndroidViewModelFactory(application) {
+            private val todoUseCases = TodoUseCases(application.applicationContext)
+
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return if (modelClass.isAssignableFrom(TodoViewModel::class.java)) {
+                    TodoViewModel(
+                        todoUseCases.createGetAllTodos(),
+                        todoUseCases.createAddTodo(),
+                        todoUseCases.createRemoveTodo(),
+                    )
+                        as T
+                } else {
+                    super.create(modelClass)
+                }
+            }
+        }
     }
 }

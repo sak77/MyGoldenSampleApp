@@ -1,7 +1,7 @@
 spotless {
     java {
         target "src/**/*.java"
-        googleJavaFormat("1.8").aosp()
+        googleJavaFormat("1.10.0").aosp()
     }
     kotlin {
         target "src/**/*.kt"
